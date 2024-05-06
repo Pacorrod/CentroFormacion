@@ -39,7 +39,7 @@ class StudCursesRelationManager extends RelationManager
 
                 Forms\Components\Select::make('students_id')
                 ->label('Alumno')
-                ->disabled(true)
+                
                 ->columnSpanFull()
                 ->options(Students::query()
                  ->pluck('name','id')),//pluck estraigo una lista de valores 
