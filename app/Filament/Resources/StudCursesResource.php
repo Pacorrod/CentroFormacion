@@ -39,9 +39,9 @@ class StudCursesResource extends Resource
         return $form
             ->schema([
                 
-                Forms\Components\Toggle::make('disable')
-                ->label('Baja')
-                ->columnSpanFull(),
+                 Forms\Components\Toggle::make('disable')
+                 ->label('Baja')
+                 ->columnSpanFull(),
 
                 Forms\Components\Select::make('courses_id')
                 ->label('Curso')
