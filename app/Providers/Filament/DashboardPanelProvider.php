@@ -25,7 +25,7 @@ class DashboardPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('dashboard')
-            ->path('') //Lo dejamos vacio para que al poner el dominio nos salga el login directamente
+            ->path('') //Lo dejamos vacio así carga directamente el index al poner el dominio
             ->login()
             ->colors([
                 'primary' => Color::Amber,

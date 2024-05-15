@@ -126,7 +126,9 @@ class StudCursesRelationManager extends RelationManager
                         ->icon('heroicon-m-inbox')
                         ->extraAttributes([
                             'color' => 'danger'])
-                        ->url(route('send.alumnos', ['courses_id' => $courses_id])),
+                        //->url(route('send.alumnos', ['courses_id' => $courses_id])),
+                        ->action(fn () => redirect()->route('send.alumnos', ['courses_id' => $courses_id])) // Con action() puedo usar las confirmaciones de Filament
+            ->requiresConfirmation(true),
                 ] : []
                         ))
             ->actions([

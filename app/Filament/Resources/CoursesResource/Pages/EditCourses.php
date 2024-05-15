@@ -41,8 +41,9 @@ class EditCourses extends EditRecord
             ->icon('heroicon-m-inbox')
             ->extraAttributes([
                 'color' => 'info'])
-            ->url(route('sendPubli.alumnos', ['courses_id' => $courseId])),
-
+            //->url(route('sendPubli.alumnos', ['courses_id' => $courseId])),
+            ->action(fn () => redirect()->route('sendPubli.alumnos', ['courses_id' => $courseId])) // Con action() puedo usar las confirmaciones de Filament
+            ->requiresConfirmation(true),
         ];
     }else{
         return [];
