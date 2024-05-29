@@ -1,0 +1,15 @@
+# phpstan.neon
+parameters:
+    level: max
+    paths:
+        - app
+        - database
+        - routes
+    bootstrapFiles:
+        - vendor/autoload.php
+    
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+
+includes:
+    - vendor/nunomaduro/larastan/extension.neon

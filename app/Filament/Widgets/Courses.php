@@ -48,12 +48,15 @@ class Courses extends BaseWidget
                     ->label('Estado')
                     ->sortable()
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'pendiente' => 'primary',
-                        'preparando' => 'info',
-                        'encurso' => 'success',
-                        'finalizado' => 'danger',
-                        'archivado' => 'light',
+                    ->color(function (string $state): string {
+                        return match ($state) {
+                            'pendiente' => 'primary',
+                            'preparando' => 'info',
+                            'encurso' => 'success',
+                            'finalizado' => 'danger',
+                            'archivado' => 'light',
+                            default => 'default', // Manejar el caso predeterminado
+                        };
                     }),
                 Tables\Columns\TextColumn::make('CoursesClassEnum')->label('Convocatoria'),
                 Tables\Columns\TextColumn::make('CoursesModoEnum')->label('Tipo')

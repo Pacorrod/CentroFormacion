@@ -10,7 +10,8 @@ use Filament\Notifications\Notification;
 
 class SendPubliController extends Controller
 {
-   public function SendEmailPubli($id){
+   public function SendEmailPubli(int $id): \Illuminate\Http\RedirectResponse
+   {
 
     $course = Courses::findOrFail($id);
     $students = Students::where('disable', false)->get();
@@ -27,7 +28,7 @@ class SendPubliController extends Controller
         $batchStudents = $students->slice($offset, $batchSize);
     
         foreach ($batchStudents as $student) {
-            Mail::send('mailPublic', ['course' => $course, 'student' => $student], function ($m) use ($student, $course) {
+            Mail::send('mailPublic', ['course' => $course, 'student' => $student], function ($m) use ($student) {
                 // Establecer el remitente del correo
                 $m->from('pacorrod7@gmail.com');
                 // Agregar el estudiante como destinatario del correo

@@ -8,12 +8,12 @@ use Filament\Notifications\Notification;
 
 class PDFController extends Controller
 {
-    public function downloadpdf($id){
+    public function downloadpdf(int $id):\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    { 
         
         //$students = StudCurses::all();
         $students = StudCurses::where('courses_id', $id)
                                 ->where('disable', false)
-                                ->with('courses') //Asi paso los campos del curso haciendo uso de la relación
                                 ->get();
         
         if ($students->isEmpty()) {

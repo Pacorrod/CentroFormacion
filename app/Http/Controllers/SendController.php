@@ -9,7 +9,8 @@ use Filament\Notifications\Notification;
 
 class SendController extends Controller
 {
-    public function SendEmailStart($id){
+    public function SendEmailStart(int $id): \Illuminate\Http\RedirectResponse
+    {
         
        
         $course = Courses::findOrFail($id);
@@ -20,7 +21,7 @@ class SendController extends Controller
         // Enviar el correo electrónico
         
         foreach ($students as $student) {
-            Mail::send('mailstart', ['course' => $course], function($m) use ($student, $course) {
+            Mail::send('mailstart', ['course' => $course], function($m) use ($student) {
                 // Establecer el remitente del correo
                 $m->from('pacorrod7@gmail.com');
                 // Agregar el estudiante como destinatario del correo

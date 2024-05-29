@@ -12,42 +12,46 @@ class EditCourses extends EditRecord
 {
     protected static string $resource = CoursesResource::class;
 
-   
-    
+
+
     protected function getHeaderActions(): array
     {
         // Obtener el ID del curso solo
-       // $courseId = $this->record->getKey();
+        // $courseId = $this->record->getKey();
 
-       // Obtener el modelo del curso y así puedo obtener cualquier campo del modelo
-    $course = Courses::find($this->record->getKey());
-    
-    // Obtener el ID del curso
-    $courseId = $course->id;
-
-    // Obtener CoursesTypeEnum
-    $courseType = $course->CoursesTypeEnum;
-
-    // Guardar el ID del curso en una variable de sesión y el estado del curso para usarlo en el StudCursesRelationManager
-    Session::put('current_course_id', $courseId);
-    Session::put('current_CoursesTypeEnum', $courseType);
         
-    if ($courseType === "preparando") {
-        return [
-        // Actions\DeleteAction::make(),
-        
-            Actions\SendEmailCursoAction::make()
-            ->label('Enviar email de publicidad')
-            ->icon('heroicon-m-inbox')
-            ->extraAttributes([
-                'color' => 'info'])
-            //->url(route('sendPubli.alumnos', ['courses_id' => $courseId])),
-            ->action(fn () => redirect()->route('sendPubli.alumnos', ['courses_id' => $courseId])) // Con action() puedo usar las confirmaciones de Filament
-            ->requiresConfirmation(true),
-        ];
-    }else{
-        return [];
-    }
+        if ($this->record !== null && $this->record instanceof \Illuminate\Database\Eloquent\Model) {
+            $course = Courses::find($this->record->getKey()); // Obtener el modelo del curso y así puedo obtener cualquier campo del modelo
 
+            // Obtener el ID del curso
+            $courseId = $course->id;
+
+            // Obtener CoursesTypeEnum
+            $courseType = $course->CoursesTypeEnum;
+
+            // Guardar el ID del curso en una variable de sesión y el estado del curso para usarlo en el StudCursesRelationManager
+            Session::put('current_course_id', $courseId);
+            Session::put('current_CoursesTypeEnum', $courseType);
+
+            if ($courseType === "preparando") {
+                return [
+                    // Actions\DeleteAction::make(),
+
+                    Actions\SendEmailCursoAction::make()
+                        ->label('Enviar email de publicidad')
+                        ->icon('heroicon-m-inbox')
+                        ->extraAttributes([
+                            'color' => 'info'
+                        ])
+                        //->url(route('sendPubli.alumnos', ['courses_id' => $courseId])),
+                        ->action(fn () => redirect()->route('sendPubli.alumnos', ['courses_id' => $courseId])) // Con action() puedo usar las confirmaciones de Filament
+                        ->requiresConfirmation(true),
+                ];
+            } else {
+                return [];
+            }
+        }else{
+            return [];
+        }
     }
 }
